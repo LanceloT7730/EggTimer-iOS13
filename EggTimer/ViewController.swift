@@ -10,17 +10,21 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let eggTimes = ["Soft": 5, "Medium": 7, "Hard": 12]
+    let eggTimes = ["Soft": 1, "Medium": 2, "Hard": 3]
+    var counter:Int = 60
+    var timer = Timer()
     
     @IBAction func hardnessSelected(_ sender: UIButton) {
+        timer.invalidate()
+        counter = eggTimes[sender.currentTitle!]! * 60
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
         
-//        var seconds:Int?
-//        seconds = eggTimes[sender.currentTitle!]! * 60
-//        while(seconds! > 0) {
-//            print("\(seconds!) seconds.")
-//            sleep(1)
-//            seconds! -= 1
-//        }
     }
     
+    @objc func updateCounter() {
+        if counter > 0 {
+            print("\(counter) seconds.")
+            counter -= 1
+        }
+    }
 }
